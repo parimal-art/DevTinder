@@ -2,12 +2,21 @@ const express = require("express");
 
 const app = express();
 
-app.use("/test",(req, res)=>{
-    res.send("Hello from server side!!")
+app.use("/user",(req, res)=>{
+    res.send("use handle all the request and remember order matters!!")
 })
 
-app.use("/hello",(req, res)=>{
-    res.send("Hello Hello Hello hello!!")
+app.get("/user",(req, res)=>{
+    res.send({firstName:"Parimal", lastName:"Maity"})
+})
+app.post("/user",(req, res)=>{
+    res.send("Data is successfilly posted")
+})
+app.delete("/user",(req, res)=>{
+    res.send("Data is successfilly Deleted")
+})
+app.use("/test",(req, res)=>{
+    res.send("This is an testing API call")
 })
 
 app.listen(3000, ()=>{
