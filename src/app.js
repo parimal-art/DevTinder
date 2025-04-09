@@ -1,29 +1,20 @@
 const express = require("express");
 const app = express();
+const {AdminAuth, userAuth}= require("./middleware/auth")
 
-app.use("/user",[
-    (req, res, next) => {
-        console.log("this is the 1st handle request");
-        next();
-        // res.send("Home route 1 ")
-    },
-    (req, res, next) => {
-        console.log("this is the 2nd handle request");
-        next();
-        // res.send("Home route 2 ")
-    }],
-    (req, res, next) => {
-        console.log("this is the 3Rd handle request");
-        next();
-        // res.send("Home route 3 ")
-    },
-    (req, res, next) => {
-        console.log("this is the 4TH handle request");
-        next();
-        res.send("request handled")
-    }
+//Handle Auth Middleware for all request Get, Push, Delete......etc
+app.use("/admin", AdminAuth)
 
-)
+app.get("/user", userAuth,(req,res)=>{
+    res.send("User is authenticated in the backend")
+})
+
+app.get("/admin/getAllData",(req,res)=>{
+    res.send("Data is successfully send to the Admin!!")
+})
+app.get("/admin/deleteUser",(req,res)=>{
+    res.send("User is been deleted sucessfully!!")
+})
 
 app.listen(3000, () => {
     console.log("Server running on port 3000");
