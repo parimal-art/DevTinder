@@ -1,19 +1,15 @@
 const express = require("express");
 const app = express();
-const {AdminAuth, userAuth}= require("./middleware/auth")
 
-//Handle Auth Middleware for all request Get, Push, Delete......etc
-app.use("/admin", AdminAuth)
+app.get("/getUserData", (req,res)=>{
 
-app.get("/user", userAuth,(req,res)=>{
-    res.send("User is authenticated in the backend")
-})
-
-app.get("/admin/getAllData",(req,res)=>{
-    res.send("Data is successfully send to the Admin!!")
-})
-app.get("/admin/deleteUser",(req,res)=>{
-    res.send("User is been deleted sucessfully!!")
+    try{
+        throw new Error("fgfyufnsdv");
+        res.send("User is authenticated in the backend")
+    }
+    catch(err){
+        res.status(500).send("This is the best approach to handle the request")
+    }
 })
 
 app.listen(3000, () => {
