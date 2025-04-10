@@ -1,19 +1,35 @@
 const express = require("express");
 const app = express();
+const connectDB=require("./config/database")
+const User = require("./models/user")
 
-app.get("/getUserData", (req,res)=>{
+app.post("/signUp",async(req, res)=>{
+    //creating the new instance of the user model
+    const user = new User({
+        firstName:"Virat",
+        lastName:"Kohli",
+        emailId:"viratkholi852@gmail.com",
+        password:"virat@123",
+    });
 
     try{
-        throw new Error("fgfyufnsdv");
-        res.send("User is authenticated in the backend")
-    }
-    catch(err){
-        res.status(500).send("This is the best approach to handle the request")
+        await user.save();
+        res.send("User added Successfully....")
+    } catch(err){
+        res.status(400).send("Error while saving data"+err.message);
     }
 })
 
-app.listen(3000, () => {
-    console.log("Server running on port 3000");
-});
+connectDB()
+.then(()=>{
+    console.log("Database connection is Successfull......");
+    app.listen(3000, () => {
+        console.log("Server running on port 3000");
+    });
+})
+.catch((err)=>{
+    console.error("Database does not connected......")
+})
+
 
 
